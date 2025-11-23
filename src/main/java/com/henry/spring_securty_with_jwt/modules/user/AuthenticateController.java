@@ -56,11 +56,11 @@ public class AuthenticateController {
             UriComponentsBuilder uriComponentsBuilder
     ) {
         Authentication authenticationToken = new UsernamePasswordAuthenticationToken(singInRequestDTO.email(), singInRequestDTO.password());
-
+        System.out.println(authenticationToken);
         Authentication authenticated = authenticationManager.authenticate(authenticationToken);
-
+        System.out.println(authenticated);
         SecurityContextHolder.getContext().setAuthentication(authenticated);
-
+        System.out.println(SecurityContextHolder.getContext().getAuthentication());
         return ResponseEntity.ok(new MessageResponseDTO("usuario autenticado com sucesso"));
     }
 
