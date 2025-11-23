@@ -19,6 +19,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.time.Duration;
+import java.time.Instant;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -66,11 +68,17 @@ public class AuthenticateController {
         SecurityContextHolder.getContext().setAuthentication(authenticated);
 
         Algorithm algorithm = Algorithm.RSA256(rsaPublicKey, rsaPrivateKey);
+
+        System.out.println(authenticated.getPrincipal());
+        Long exAt = Instant.now().plus(Duration.ofMinutes(10)).toEpochMilli();
+
         String token = JWT.create()
                 .withIssuer("auth0")
+                .withSubject(String.valueOf(authenticated.getPrincipal()))
+                .withExpiresAt(Instant.ofEpochMilli(exAt))
                 .sign(algorithm);
 
-        return ResponseEntity.ok(new MessageResponseDTO("usuario autenticado com sucesso"));
+        return ResponseEntity.ok(new TokenResponseDTO(token, exAt));
     }
 
     record SingUpRequestDTO(String email, String password) {
@@ -81,5 +89,9 @@ public class AuthenticateController {
 
     record MessageResponseDTO(String message) {
     }
+
+    record TokenResponseDTO(String token, long exAt) {
+    }
+
 
 }
