@@ -1,0 +1,9 @@
+/home/henry/Documentos/github/spring-security-with-jwt/src/main/java/com/henry/spring_securty_with_jwt/SpringSecurtyWithJwtApplication.java
+/home/henry/Documentos/github/spring-security-with-jwt/src/main/java/com/henry/spring_securty_with_jwt/infra/ExampleSimpleFilter.java
+/home/henry/Documentos/github/spring-security-with-jwt/src/main/java/com/henry/spring_securty_with_jwt/infra/WebSpringConfiguration.java
+/home/henry/Documentos/github/spring-security-with-jwt/src/main/java/com/henry/spring_securty_with_jwt/modules/user/AuthenticateController.java
+/home/henry/Documentos/github/spring-security-with-jwt/src/main/java/com/henry/spring_securty_with_jwt/modules/user/GetProfileController.java
+/home/henry/Documentos/github/spring-security-with-jwt/src/main/java/com/henry/spring_securty_with_jwt/modules/user/HelloController.java
+/home/henry/Documentos/github/spring-security-with-jwt/src/main/java/com/henry/spring_securty_with_jwt/modules/user/JpaUserRepository.java
+/home/henry/Documentos/github/spring-security-with-jwt/src/main/java/com/henry/spring_securty_with_jwt/modules/user/UserEntity.java
+/home/henry/Documentos/github/spring-security-with-jwt/src/main/java/com/henry/spring_securty_with_jwt/modules/user/UserServiceDetails.java

@@ -1,5 +1,7 @@
 package com.henry.spring_securty_with_jwt.modules.user;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.Authenticator;
 import java.net.URI;
-import java.util.Optional;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -28,6 +30,10 @@ public class AuthenticateController {
     private final PasswordEncoder passwordEncoder;
 
     private final AuthenticationManager authenticationManager;
+
+    private final RSAPublicKey rsaPublicKey;
+
+    private final RSAPrivateKey rsaPrivateKey;
 
     @PostMapping("/sing-up")
     public ResponseEntity<Object> singUp(
@@ -56,11 +62,14 @@ public class AuthenticateController {
             UriComponentsBuilder uriComponentsBuilder
     ) {
         Authentication authenticationToken = new UsernamePasswordAuthenticationToken(singInRequestDTO.email(), singInRequestDTO.password());
-        System.out.println(authenticationToken);
         Authentication authenticated = authenticationManager.authenticate(authenticationToken);
-        System.out.println(authenticated);
         SecurityContextHolder.getContext().setAuthentication(authenticated);
-        System.out.println(SecurityContextHolder.getContext().getAuthentication());
+
+        Algorithm algorithm = Algorithm.RSA256(rsaPublicKey, rsaPrivateKey);
+        String token = JWT.create()
+                .withIssuer("auth0")
+                .sign(algorithm);
+
         return ResponseEntity.ok(new MessageResponseDTO("usuario autenticado com sucesso"));
     }
 
