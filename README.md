@@ -1,1 +1,1 @@
-# springs-securty-with-jwt
+# spring-securty-with-jwt
